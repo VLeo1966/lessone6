@@ -6,41 +6,41 @@ class User:
 
     # Геттеры для атрибутов
     @property
-    def get_user_id(self):
+    def user_id(self):
         return self.__user_id
 
     @property
-    def get_name(self):
+    def name(self):
         return self.__name
 
     @property
-    def get_access_level(self):
+    def access_level(self):
         return self.__access_level
 
-    @property
     # Сеттеры для атрибутов
-    def set_name(self, name):
+    @name.setter
+    def name(self, name):
         self.__name = name
 
-    @property
-    def set_access_level(self, level):
+    @access_level.setter
+    def access_level(self, level):
         self.__access_level = level
 
 
 class Admin(User):
     def __init__(self, user_id, name):
         super().__init__(user_id, name)
-        self.set_access_level('admin')
+        self.access_level = 'admin'
 
     def add_user(self, user_list, user):
         user_list.append(user)
-        print(f"User {user.get_name()} added by admin {self.get_name()}.")
+        print(f"User {user.name} added by admin {self.name}.")
 
     def remove_user(self, user_list, user_id):
         for user in user_list:
-            if user.get_user_id() == user_id:
+            if user.user_id == user_id:
                 user_list.remove(user)
-                print(f"User {user.get_name()} removed by admin {self.get_name()}.")
+                print(f"User {user.name} removed by admin {self.name}.")
                 return
         print(f"User with ID {user_id} not found.")
 
@@ -67,14 +67,14 @@ if __name__ == "__main__":
     admin1.add_user(user_list, user2)
 
     # Проверяем список админов и пользователей
-
-
+    print("\nСписок пользователей:")
     for user in user_list:
-        print(f"ID: {user.get_user_id()}, Name: {user.get_name()}, Access Level: {user.get_access_level()}")
+        print(f"ID: {user.user_id}, Name: {user.name}, Access Level: {user.access_level}")
 
     # Удаляем пользователя через администратора
     admin1.remove_user(user_list, 2)
 
     # Проверяем список пользователей после удаления
+    print("\nСписок пользователей после удаления:")
     for user in user_list:
-        print(f"ID: {user.get_user_id()}, Name: {user.get_name()}, Access Level: {user.get_access_level()}")
+        print(f"ID: {user.user_id}, Name: {user.name}, Access Level: {user.access_level}")
